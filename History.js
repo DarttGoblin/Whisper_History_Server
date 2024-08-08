@@ -14,9 +14,8 @@ app.use((req, res, next) => {
     next();
 });
 
-// Create a connection pool
 const pool = mysql.createPool({
-    connectionLimit: 10, // Adjust the limit as needed
+    connectionLimit: 10,
     host: 'sql7.freesqldatabase.com',
     user: 'sql7724126',
     password: 'V6PCDXyNdv',
@@ -33,8 +32,7 @@ app.post("/", (req, res) => {
         console.log('Connected to database with connection id ' + connection.threadId);
 
         connection.query('SELECT * FROM conversation0', (error, results) => {
-            connection.release(); // Release the connection back to the pool
-
+            connection.release();
             if (error) {
                 console.log('Error ' + error.stack);
                 res.status(500).json({ success: false, error: error.stack });
